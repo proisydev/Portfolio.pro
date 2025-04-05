@@ -1,0 +1,85 @@
+---
+import { getAlternateLocales, getLocalizedHref } from "../../utils/i18n/locale";
+
+interface Props {
+  title: string;
+  description: string;
+  domain: string;
+  noindex?: boolean;
+  type?: "website" | "article";
+  identity: any;
+  currentLocale: string;
+}
+
+const {
+  title,
+  description,
+  domain,
+  noindex = false,
+  type = "website",
+  identity,
+  currentLocale,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, domain);
+const alternateLocales = getAlternateLocales(currentLocale);
+const fullTitle = `${title} — ${identity?.name.slice(0, 1)}. ${identity?.lastName}`;
+const image = `${domain}/api/image-open-graph?title=${encodeURIComponent(fullTitle.replace(`— ${identity?.name.slice(0, 1)}. ${identity?.lastName}`, ""))}&page=${canonicalURL}`;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta http-equiv="content-language" content={currentLocale} />
+<link rel="canonical" href={canonicalURL} />
+
+{
+  alternateLocales.map((locale) => (
+    <link
+      rel="alternate"
+      hreflang={locale}
+      href={`${domain}${getLocalizedHref(Astro.url.pathname, locale)}`}
+    />
+  ))
+}
+
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    <meta name="robots" content="index, follow" />
+  )
+}
+
+<meta
+  property="og:site_name"
+  content={`${identity.name} ${identity.lastName}`}
+/>
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="author" content={`${identity.name} ${identity.lastName}`} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ffffff" />
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": type === "website" ? "website" : "article",
+    url: canonicalURL,
+    name: fullTitle,
+    description: description,
+    author: {
+      "@type": "person",
+      name: `${identity.name} ${identity.lastName}`,
+    },
+  })}
+/>

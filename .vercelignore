@@ -1,0 +1,10 @@
+/scripts/cv-upload.js
+/scripts/generate-password-hash.js
+/scripts/cv-generate-secret-key.js
+/scripts/create-vercel.json-file.js
+/scripts/cv-download.js
+/.gitignore
+/.vscode
+/public/docs/favicon.psd
+/public/docs/.htaccess
+/.env.example

@@ -1,0 +1,46 @@
+---
+import ProjectCard from "../../components/Pages/ProjectCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import { fetchProjects, type Project } from "../../utils/fetchProjects";
+import { createTranslator } from "../../utils/i18n/i18n";
+import { isValidLocale } from "../../utils/i18n/locale";
+
+// Extract locale from URL (first segment)
+const currentLocale = Astro.url.pathname.split("/")[1];
+const validLocale = isValidLocale(currentLocale) ? currentLocale : "en";
+const t = createTranslator(validLocale);
+
+const GITHUB_USERNAME = import.meta.env.GITHUB_USERNAME;
+const projects: Project[] = await fetchProjects(GITHUB_USERNAME);
+
+const metaTitle = t("SEO.projects.title");
+const metaDescription = t("SEO.projects.description");
+
+if (!isValidLocale(currentLocale)) {
+  const acceptLanguage = Astro.request.headers.get("accept-language") || "en";
+  const preferredLang = acceptLanguage.startsWith("fr") ? "fr" : "en";
+  return Astro.redirect(getLocalizedUrl(preferredLang, "/projects"));
+}
+---
+
+<Layout title={metaTitle} description={metaDescription} type="website">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-12 text-center">
+      {metaTitle}
+    </h1>
+
+    <div
+      class=`${projects.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 " : ""}max-w-7xl mx-auto`
+    >
+      {
+        projects.length > 0 ? (
+          projects.map((project: Project) => <ProjectCard {...project} />)
+        ) : (
+          <p class="text-gray-400 text-center">
+            {t("PAGE.projects.noProjectsFound")}
+          </p>
+        )
+      }
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,85 @@
+{
+  "SEO": {
+    "home": {
+      "title": "Aspiring Developer by Passion",
+      "description": "{name} {lastName} is an aspiring developer turning ideas into elegant, high-performance websites, bots and other digital solutions."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Discover my web and software development projects. Portfolio of projects including websites, applications and innovative digital solutions."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Contact {name} {lastName} using this contact page."
+    },
+    "404": {
+      "title": "Error 404",
+      "description": "The page you are looking for was not found. Please check the URL."
+    },
+    "redirect": {
+      "title": "Redirect",
+      "description": "Automatic redirection to your preferred language."
+    }
+  },
+  "NAV": {
+    "home": "Home",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "PAGE": {
+    "home": {
+      "pageJob": "Passionate Developer",
+      "pageDescription": "Transforming ideas into websites, bots, and <br /> other elegant, high-performance digital solutions",
+      "button": {
+        "cv": "Curriculum Vitae",
+        "letter": "Cover letter"
+      },
+      "letter": {
+        "first": "Dear company or training center,",
+        "second": "Every project is unique, and so is every company or training center. <br /> This is why a personalized cover letter cannot be provided as a general rule.",
+        "third": "I would be delighted to provide you with a letter that specifically reflects my motivation for working with your team. <br /> This will be sent to you after an initial discussion, based on your specific needs and expectations.",
+        "fourth": "Please do not hesitate to contact me directly by email via my Curriculum Vitae for any further information. I look forward to hearing from you."
+      }
+    },
+    "projects": {
+      "noProjectsFound": "No projects found",
+      "card": {
+        "noLanguages": "Unspecified language",
+        "seeWebsite": "See the site",
+        "seeNamedWebsite": "See the {name}'s website",
+        "seeNamedRepository": "See the {name}'s repository"
+      }
+    },
+    "contact": {
+      "send": "Send",
+      "field": {
+        "name": "Identity <small>(Ex: First name Last name, Company, Association)</small>",
+        "email": "E-mail address",
+        "message": "Message"
+      },
+      "form": {
+        "successMessage": "Your message has been sent. <br /> We'll get back to you as soon as possible.",
+        "errorMessage": "An error has occurred while sending your message. <br /> Please try again later or contact me directly by email."
+      }
+    },
+    "404": {
+      "notFound": "Page not found",
+      "text": "The page you are looking for has not been found (moved or deleted). <br /> Please check the URL."
+    },
+    "redirect": {
+      "subtitle": "To your language",
+      "text": "We'll redirect you to your browser's preferred language, if available, <br /> otherwise, you'll automatically be in English."
+    }
+  },
+  "OTHER": {
+    "informations": "Informations",
+    "inDev": "In development...",
+    "inDevAgain": "In redevelopment...",
+    "allRightsReserved": "All rights reserved",
+    "codeBy": "Code by",
+    "poweredBy": "Powered by",
+    "and": "and",
+    "seeOn": "See on {platform}",
+    "returnTo": "Return to {page}"
+  }
+}

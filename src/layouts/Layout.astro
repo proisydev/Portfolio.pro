@@ -1,0 +1,202 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import { isValidLocale } from "../utils/i18n/locale";
+import SEO from "../components/Layouts/SEO.astro";
+import Header from "../components/Layouts/Header.astro";
+import Footer from "../components/Layouts/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  type?: "website" | "article";
+}
+
+const identity = {
+  name: import.meta.env.FIRST_NAME,
+  lastName: import.meta.env.LAST_NAME,
+};
+
+const { title, description, noindex, type } = Astro.props;
+const domain = import.meta.env.SITE_URL;
+
+const currentLocale = (Astro && Astro.currentLocale) || undefined;
+
+if (!currentLocale) {
+  throw new Error(`Local not defined`);
+} else {
+  if (!isValidLocale(currentLocale)) {
+    throw new Error(`Local unsupported: ${currentLocale}`);
+  }
+}
+---
+
+<!doctype html>
+<html lang={currentLocale} class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/favicon/apple-touch-icon.png"
+    />
+    <meta
+      name="apple-mobile-web-app-title"
+      content=`${identity.name} ${identity.lastName}`
+    />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+    <SEO
+      {identity}
+      {title}
+      {description}
+      {noindex}
+      {type}
+      {currentLocale}
+      domain=`https://${domain}`
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <ViewTransitions />
+  </head>
+  <body class="bg-black text-white min-h-screen flex flex-col">
+    <Header {identity} />
+    <main class="flex-1 flex flex-col justify-center" transition:animate="fade">
+      <slot />
+    </main>
+    <Footer {identity} {domain} />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    font-family: system-ui, sans-serif;
+    background: #000;
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+  :root::view-transition-old(root) {
+    animation: 0.2s cubic-bezier(0.76, 0, 0.24, 1) both fadeOut;
+  }
+
+  :root::view-transition-new(root) {
+    animation: 0.3s cubic-bezier(0.76, 0, 0.24, 1) both fadeIn;
+  }
+  .project-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.3);
+  }
+  .modal-overlay {
+    animation: modalFadeIn 0.2s ease-out forwards;
+  }
+
+  .modal-content {
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .modal-overlay-closing {
+    animation: modalFadeOut 0.2s ease-in forwards;
+  }
+
+  .modal-content-closing {
+    animation: modalSlideOut 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes modalFadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes modalSlideOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+  a,
+  button {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [transition\:animate="fade"] {
+      view-transition-name: fade;
+    }
+
+    ::view-transition-old(fade) {
+      animation: 0.2s cubic-bezier(0.76, 0, 0.24, 1) both fadeOut;
+    }
+
+    ::view-transition-new(fade) {
+      animation: 0.3s cubic-bezier(0.76, 0, 0.24, 1) both fadeIn;
+    }
+  }
+</style>

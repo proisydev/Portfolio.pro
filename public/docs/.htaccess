@@ -1,0 +1,15 @@
+# Désactiver l'indexation du répertoire
+Options -Indexes
+
+# Bloquer l'accès direct aux fichiers PDF
+<FilesMatch "\.pdf$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Autoriser l'accès seulement via le site
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_REFERER} !^http://(www\.)?proisy\.me/ [NC]
+    RewriteRule \.(pdf)$ - [F]
+</IfModule>

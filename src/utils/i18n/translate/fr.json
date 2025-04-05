@@ -1,0 +1,85 @@
+{
+  "SEO": {
+    "home": {
+      "title": "Aspirant Développeur par Passion",
+      "description": "{name} {lastName} est un aspirant développeur transformant des idées en sites internets, bots, et autres solutions digitales élégantes et performantes."
+    },
+    "projects": {
+      "title": "Projets",
+      "description": "Découvrez mes projets de développement web et logiciel. Portfolio de réalisations incluant des sites web, des applications et des solutions numériques innovantes."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Contactez {name} {lastName} grâce à cette page prévu à cet effet."
+    },
+    "404": {
+      "title": "Erreur 404",
+      "description": "La page que vous recherchez n'a pas été trouvée. Veuillez verifier l'URL."
+    },
+    "redirect": {
+      "title": "Redirect",
+      "description": "Une redirection automatique vers votre langue préféré."
+    }
+  },
+  "NAV": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "PAGE": {
+    "home": {
+      "pageJob": "Développeur Passionné",
+      "pageDescription": "Transformant des idées en sites internets, bots, et <br /> autres solutions digitales élégantes et performantes",
+      "button": {
+        "cv": "Curriculum Vitae",
+        "letter": "Lettre de motivation"
+      },
+      "letter": {
+        "first": "Chère entreprise ou centre de formation,",
+        "second": "Chaque projet est unique, et il en va de même pour chaque entreprise ou centre de formation. <br /> C'est pourquoi une lettre de motivation personnalisée ne peut être fournie de manière générale.",
+        "third": "Je serais ravi de vous fournir une lettre qui reflète spécifiquement mes motivations pour collaborer avec votre équipe. <br /> Celle-ci sera envoyée après un premier échange et en fonction de vos besoins et attentes spécifiques.",
+        "fourth": "N'hésitez pas à me contacter directement par email via mon Curriculum Vitae pour toute information complémentaire. Je serai heureux d'échanger avec vous."
+      }
+    },
+    "projects": {
+      "noProjectsFound": "Aucun projets trouvé",
+      "card": {
+        "noLanguages": "Langage non spécifié",
+        "seeWebsite": "Voir le site",
+        "seeNamedWebsite": "Voir le site de {name}",
+        "seeNamedRepository": "Voir le repo de {name}"
+      }
+    },
+    "contact": {
+      "send": "Envoyer",
+      "field": {
+        "name": "Identité <small>(Ex: Prénom Nom, Entreprise, Association)</small>",
+        "email": "Adresse e-mail",
+        "message": "Message"
+      },
+      "form": {
+        "successMessage": "Votre message a bien été envoyé. <br /> Une réponse vous sera donnée dans les plus brefs délais.",
+        "errorMessage": "Une erreur est survenue lors de l'envoi de votre message. <br /> Veuillez réessayer ultérieurement ou me contacter directement par email."
+      }
+    },
+    "404": {
+      "notFound": "Page introuvable",
+      "text": "La page que vous recherchez n'a pas été trouvée (déplacée ou supprimée). <br /> Veuillez verifier l'URL."
+    },
+    "redirect": {
+      "subtitle": "Vers votre langue",
+      "text": "Nous allons vous rediriger vers la langue préféré de votre navigateur si elle existe, <br /> au cas contraire, vous serrez automatiquement en Anglais."
+    }
+  },
+  "OTHER": {
+    "informations": "Informations",
+    "inDev": "En développement...",
+    "inDevAgain": "En redéveloppement...",
+    "allRightsReserved": "Tous droits réservés",
+    "codeBy": "Code par",
+    "poweredBy": "Propulsé par",
+    "and": "et",
+    "seeOn": "Voir sur {platform}",
+    "returnTo": "Retournez vers {page}"
+  }
+}

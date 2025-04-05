@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { createTranslator } from "../utils/i18n/i18n";
+import { isValidLocale } from "../utils/i18n/locale";
+
+// Extract locale from URL (first segment)
+const currentLocale = Astro.url.pathname.split("/")[1];
+const validLocale = isValidLocale(currentLocale) ? currentLocale : "en";
+const t = createTranslator(validLocale);
+
+const metaTitle = t("SEO.redirect.title");
+const metaDescription = t("SEO.redirect.description");
+
+const acceptLanguage = Astro.request.headers.get("accept-language") || "en";
+const preferredLang = acceptLanguage.startsWith("fr") ? "fr" : "en";
+return Astro.redirect(`/${preferredLang}`);
+---
+
+<Layout
+  title={metaTitle}
+  description={metaDescription}
+  type="website"
+  noindex={true}
+>
+  <div
+    class="container mx-auto px-4 py-8 text-center"
+    transition:animate="fade"
+  >
+    <h1 class="text-4xl font-bold mb-12" transition:name="title">
+      {t("SEO.redirect.title")}
+    </h1>
+    <h2
+      class="text-xl font-semibold mb-3 transition-colors hover:text-purple-400"
+    >
+      {t("PAGE.redirect.subtitle")}
+    </h2>
+    <p class="text-gray-400 mb-4">
+      <Fragment set:html={t("PAGE.redirect.text")} />
+    </p>
+  </div>
+</Layout>

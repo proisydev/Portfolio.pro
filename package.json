@@ -1,0 +1,59 @@
+{
+  "name": "portfolio.astro",
+  "description": "A portfolio under the Astro framework to show your projects, curriculum vitae, cover letter, as well as a place to contact us, in order to have a professional website.",
+  "keywords": [
+    "astro",
+    "portfolio",
+    "website",
+    "curriculum vitae",
+    "cover letter",
+    "contact"
+  ],
+  "type": "module",
+  "version": "0.0.1",
+  "homepage": "https://github.com/tenqah/Portfolio.astro",
+  "author": "Tenqah (https://redirect.tenqah.com/github)",
+  "bugs": {
+    "url": "https://github.com/tenqah/Portfolio.astro/issues"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "npm run telemetry:disable",
+    "build": "astro build && npm run change-sitemap-urls",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate-hash": "node scripts/generate-password-hash.js",
+    "change-sitemap-urls": "node scripts/change-sitemap-urls.js",
+    "create-vercel.json-file": "node scripts/create-vercel.json-file.js",
+    "telemetry:disable": "astro telemetry disable",
+    "telemetry:enable": "astro telemetry enable",
+    "cv:generate-secret": "node scripts/cv-generate-secret-key.js",
+    "cv:upload": "node scripts/cv-upload.js",
+    "cv:download": "node scripts/cv-download.js",
+    "depcheck": "npx depcheck"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/tailwind": "^6.0.1",
+    "@astrojs/vercel": "^8.1.3",
+    "@playform/compress": "^0.1.6",
+    "@vercel/og": "^0.6.4",
+    "astro": "^5.5.4",
+    "axios": "^1.7.9",
+    "depcheck": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "form-data": "^4.0.1",
+    "lucide-react": "^0.479.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "vercel": "^39.3.0"
+  }
+}

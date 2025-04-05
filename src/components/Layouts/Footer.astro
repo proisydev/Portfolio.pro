@@ -1,0 +1,82 @@
+---
+import { createTranslator } from "../../utils/i18n/i18n";
+import { getLocalizedUrl, isValidLocale } from "../../utils/i18n/locale";
+
+// Extract locale from URL (first segment)
+const currentLocale = Astro.url.pathname.split("/")[1];
+const validLocale = isValidLocale(currentLocale) ? currentLocale : "en";
+const t = createTranslator(validLocale);
+
+interface Props {
+  identity: any;
+  domain: string;
+}
+
+const { identity, domain } = Astro.props;
+
+let version;
+if (import.meta.env.VERCEL_GIT_COMMIT_SHA) {
+  version = import.meta.env.VERCEL_GIT_COMMIT_SHA.substring(0, 7);
+} else {
+  version = "none";
+}
+---
+
+<footer class="bg-black border-t border-gray-900">
+  <div class="container mx-auto py-4">
+    <p class="text-gray-500 text-sm text-center">
+      {new Date().getFullYear()} &copy; {t("OTHER.allRightsReserved")}. — {
+        t("OTHER.codeBy")
+      }
+      {
+        (
+          <a
+            href="https://redirect.proisy.me/contact"
+            class="text-purple-400 hover:text-purple-300"
+            title="Contact"
+          >
+            {identity?.name} {identity?.lastName}
+          </a>
+        )
+      }
+    </p>
+    <p class="text-gray-500 text-sm text-center">
+      {t("OTHER.poweredBy")}
+      <a
+        href="https://redirect.proisy.me/hostinger/referral-code"
+        rel="noopener"
+        title="Hostinger"
+        target="_blank"
+        class="text-purple-400 hover:text-purple-300"
+      >
+        Hostinger
+      </a>
+      {t("OTHER.and")}
+      <a
+        href="https://redirect.proisy.me/vercel"
+        rel="noopener"
+        title="Vercel"
+        target="_blank"
+        class="text-purple-400 hover:text-purple-300"
+      >
+        Vercel
+      </a>
+      {
+        version !== "none" && (
+          <span>
+            — Version
+            <a
+              href="https://redirect.proisy.me/vercel/view-source"
+              target="_blank"
+              rel="noopener"
+              title={`Version ${version}`}
+              class="text-purple-400 hover:text-purple-300"
+            >
+              {version}
+            </a>
+          </span>
+        )
+      }
+    </p>
+  </div>
+</footer>

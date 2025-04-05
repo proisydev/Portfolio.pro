@@ -1,0 +1,148 @@
+---
+import { createTranslator } from "../../utils/i18n/i18n";
+import { isValidLocale } from "../../utils/i18n/locale";
+
+// Extract locale from URL (first segment)
+const currentLocale = Astro.url.pathname.split("/")[1];
+const validLocale = isValidLocale(currentLocale) ? currentLocale : "en";
+const t = createTranslator(validLocale);
+
+interface Props {
+  author?: string;
+  name: string;
+  description: string;
+  language: string[];
+  githubPagesUrl?: string;
+  stars?: number;
+  forks?: number;
+}
+
+// Typage des props
+const props = Astro.props as Props;
+const { author, name, description, language, githubPagesUrl, stars, forks } =
+  props;
+---
+
+<div
+  class="project-card border border-purple-700 rounded-lg overflow-hidden backdrop-blur-sm"
+>
+  <div class="p-6">
+    <h2
+      class="text-xl font-semibold mb-3 transition-colors hover:text-purple-400"
+    >
+      {name}
+    </h2>
+    <p class="text-gray-400 mb-4">{description}</p>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <span
+        class="px-3 py-1 bg-purple-700/20 text-purple-400 rounded-full text-sm transition-colors hover:bg-purple-700/30"
+      >
+        {
+          stars !== undefined && (
+            <div class="flex items-center gap-2" title={`${stars} Stars`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-yellow-400"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 .587l3.668 7.429 8.213 1.192-5.94 5.692 1.402 8.172L12 18.896l-7.343 3.876 1.402-8.172-5.94-5.692 8.213-1.192z" />
+              </svg>
+              <span>{stars}</span>
+            </div>
+          )
+        }
+      </span>
+      <span
+        class="px-3 py-1 bg-purple-700/20 text-purple-400 rounded-full text-sm transition-colors hover:bg-purple-700/30"
+      >
+        {
+          forks !== undefined && (
+            <div class="flex items-center gap-2" title={`${forks} Forks`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-gray-400"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M5 3a2 2 0 10.001 4.001A2 2 0 005 3zm14 0a2 2 0 10.001 4.001A2 2 0 0019 3zm0 8a2 2 0 10.001 4.001A2 2 0 0019 11zm-7 0a2 2 0 10.001 4.001A2 2 0 0012 11zM5 11a2 2 0 10.001 4.001A2 2 0 005 11zm7 8a2 2 0 10.001 4.001A2 2 0 0012 19z" />
+              </svg>
+              <span>{forks}</span>
+            </div>
+          )
+        }
+      </span>
+      {
+        language.length > 0 ? (
+          language.map((lang) => (
+            <span
+              title={lang}
+              class="px-3 py-1 bg-purple-700/20 text-purple-400 rounded-full text-sm transition-colors hover:bg-purple-700/30"
+            >
+              {lang}
+            </span>
+          ))
+        ) : (
+          <span class="text-gray-500">
+            {t("PAGE.projects.card.noLanguages")}
+          </span>
+        )
+      }
+    </div>
+    <div class="flex gap-4">
+      <a
+        href=`/_github/${author}/${name}`
+        title={t("PAGE.projects.card.seeNamedRepository").replace(
+          "{name}",
+          name,
+        )}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block bg-purple-700 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-all hover:translate-y-[-2px]"
+      >
+        {t("OTHER.seeOn").replace("{platform}", "GitHub")}
+      </a>
+
+      {
+        githubPagesUrl && (
+          <a
+            href={githubPagesUrl}
+            title={t("PAGE.projects.card.seeNamedWebsite").replace(
+              "{name}",
+              name,
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block bg-purple-700/20 text-purple-400 px-4 py-2 rounded-lg hover:bg-purple-800/20 transition-all hover:translate-y-[-2px]"
+          >
+            {t("PAGE.projects.card.seeWebsite")}
+          </a>
+        )
+      }
+    </div>
+
+    <style is:inline>
+      .project-card:hover {
+        transform: translateY(-10px);
+      }
+
+      :root {
+        /** Set the maximum width of the link preview. */
+        --link-preview-width: 10em;
+        --link-preview-height: 1em;
+        /** Set the vertical padding around the card text. */
+        --link-preview-padding-block: 0.5em;
+        /** Set the maximum number of lines in the description to display. */
+        --link-preview-description-lines: 3;
+      }
+
+      /* force to hide it by default */
+      article.link-preview > small.link-preview__description,
+      .link-preview__content > small {
+        display: none !important;
+        /* stylelint-disable-next-line */
+        display: none;
+      }
+    </style>
+  </div>
+</div>

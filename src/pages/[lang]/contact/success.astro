@@ -1,0 +1,59 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { createTranslator } from "../../../utils/i18n/i18n";
+import { getLocalizedUrl, isValidLocale } from "../../../utils/i18n/locale";
+
+// Extract locale from URL (first segment)
+const currentLocale = Astro.url.pathname.split("/")[1];
+const validLocale = isValidLocale(currentLocale) ? currentLocale : "en";
+const t = createTranslator(validLocale);
+
+// Utility to parse cookies from the request headers
+function parseCookies(cookieHeader: string | null): Record<string, string> {
+  const cookies: Record<string, string> = {};
+  if (!cookieHeader) return cookies;
+  cookieHeader.split(";").forEach((cookie) => {
+    const [name, ...rest] = cookie.split("=");
+    cookies[name.trim()] = rest.join("=").trim();
+  });
+  return cookies;
+}
+
+const cookies = parseCookies(Astro.request.headers.get("cookie"));
+
+// Determine if we are in development mode
+const isDev = import.meta.env.MODE === "development";
+
+// If the cookie is not present or not equal to "1", redirect to localized contact
+if (!isDev && cookies.contactSuccess !== "1") {
+  return Astro.redirect(getLocalizedUrl(currentLocale, "/contact"));
+} else if (!isDev) {
+  // Remove the cookie by setting it to empty with Max-Age=0
+  Astro.response.headers.set(
+    "Set-Cookie",
+    "contactSuccess=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Strict",
+  );
+}
+---
+
+<Layout
+  title={t("SEO.contact.title")}
+  description={t("SEO.contact.description")}
+  type="website"
+  noindex={true}
+>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center">{t("SEO.contact.title")}</h1>
+    <p class="text-center mt-4">
+      <Fragment set:html={t("PAGE.contact.form.successMessage")} />
+    </p>
+    <div class="text-center mt-8">
+      <a
+        href={getLocalizedUrl(validLocale, "/contact")}
+        class="text-purple-400 hover:text-purple-300"
+      >
+        {t("OTHER.returnTo").replace("{page}", t("NAV.contact").toLowerCase())}
+      </a>
+    </div>
+  </div>
+</Layout>
