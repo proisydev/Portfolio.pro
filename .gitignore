@@ -27,3 +27,6 @@ node_modules
 # custom
 public/docs/*.pdf
 .vercel/
+
+# remove unused scripts
+scripts/unused/
