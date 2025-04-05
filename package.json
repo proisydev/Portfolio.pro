@@ -24,6 +24,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "telemetry:disable": "astro telemetry disable",
+    "telemetry:enable": "astro telemetry enable",
     "depcheck": "npx depcheck"
   },
   "dependencies": {
