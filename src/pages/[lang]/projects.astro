@@ -2,16 +2,33 @@
 import ProjectCard from "../../components/Pages/ProjectCard.astro";
 import Layout from "../../layouts/Layout.astro";
 import { fetchProjects, type Project } from "../../utils/fetchProjects";
+import { autoTranslate } from "../../utils/i18n/autoTranslate";
 import { createTranslator } from "../../utils/i18n/i18n";
 import { isValidLocale } from "../../utils/i18n/locale";
 
 // Extract locale from URL (first segment)
 const currentLocale = Astro.url.pathname.split("/")[1];
 const validLocale = isValidLocale(currentLocale) ? currentLocale : "en";
+const isFrench = validLocale === "fr";
 const t = createTranslator(validLocale);
 
 const GITHUB_USERNAME = import.meta.env.GITHUB_USERNAME;
 const projects: Project[] = await fetchProjects(GITHUB_USERNAME);
+let finalProjects: Project[] = projects;
+
+// Translate descriptions only if the page is in French
+if (isFrench) {
+  finalProjects = await Promise.all(
+    projects.map(async (project) => {
+      const translatedDescription = await autoTranslate(
+        project.description,
+        "en",
+        "fr",
+      );
+      return { ...project, description: translatedDescription };
+    }),
+  );
+}
 
 const metaTitle = t("SEO.projects.title");
 const metaDescription = t("SEO.projects.description");
@@ -25,16 +42,13 @@ if (!isValidLocale(currentLocale)) {
 
 <Layout title={metaTitle} description={metaDescription} type="website">
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-12 text-center">
-      {metaTitle}
-    </h1>
-
+    <h1 class="text-4xl font-bold mb-12 text-center">{metaTitle}</h1>
     <div
-      class=`${projects.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 " : ""}max-w-7xl mx-auto`
+      class={`${finalProjects.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 " : ""}max-w-7xl mx-auto`}
     >
       {
-        projects.length > 0 ? (
-          projects.map((project: Project) => <ProjectCard {...project} />)
+        finalProjects.length > 0 ? (
+          finalProjects.map((project: Project) => <ProjectCard {...project} />)
         ) : (
           <p class="text-gray-400 text-center">
             {t("PAGE.projects.noProjectsFound")}
