@@ -1,10 +1,12 @@
-// @ts-check
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig();
+
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
-const siteUrl = import.meta.env.SITE_URL;
+const domain = process.env.DOMAIN_NAME || "my.website";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,12 +22,12 @@ export default defineConfig({
     tailwind(),
     sitemap({
       filter: (page) =>
-        page !== `${siteUrl}/docs/` && page !== `${siteUrl}/api/`,
+        page !== `https://${domain}/docs/` && page !== `https://${domain}/api/`,
     }),
     (await import("@playform/compress")).default(),
   ],
   output: "server",
-  site: "https://mysite.com",
+  site: `https://${domain}`,
   trailingSlash: "never",
   adapter: vercel({
     includeFiles: [

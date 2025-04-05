@@ -31,14 +31,14 @@
       "pageJob": "Passionate Developer",
       "pageDescription": "Transforming ideas into websites, bots, and <br /> other elegant, high-performance digital solutions",
       "button": {
-        "cv": "Curriculum Vitae",
+        "linkedin": "LinkedIn",
         "letter": "Cover letter"
       },
       "letter": {
         "first": "Dear company or training center,",
         "second": "Every project is unique, and so is every company or training center. <br /> This is why a personalized cover letter cannot be provided as a general rule.",
         "third": "I would be delighted to provide you with a letter that specifically reflects my motivation for working with your team. <br /> This will be sent to you after an initial discussion, based on your specific needs and expectations.",
-        "fourth": "Please do not hesitate to contact me directly by email via my Curriculum Vitae for any further information. I look forward to hearing from you."
+        "fourth": "Please do not hesitate to contact me directly via my LinkedIn for any further information. I look forward to hearing from you."
       }
     },
     "projects": {

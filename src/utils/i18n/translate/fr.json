@@ -31,14 +31,14 @@
       "pageJob": "Développeur Passionné",
       "pageDescription": "Transformant des idées en sites internets, bots, et <br /> autres solutions digitales élégantes et performantes",
       "button": {
-        "cv": "Curriculum Vitae",
+        "linkedin": "LinkedIn",
         "letter": "Lettre de motivation"
       },
       "letter": {
         "first": "Chère entreprise ou centre de formation,",
         "second": "Chaque projet est unique, et il en va de même pour chaque entreprise ou centre de formation. <br /> C'est pourquoi une lettre de motivation personnalisée ne peut être fournie de manière générale.",
         "third": "Je serais ravi de vous fournir une lettre qui reflète spécifiquement mes motivations pour collaborer avec votre équipe. <br /> Celle-ci sera envoyée après un premier échange et en fonction de vos besoins et attentes spécifiques.",
-        "fourth": "N'hésitez pas à me contacter directement par email via mon Curriculum Vitae pour toute information complémentaire. Je serai heureux d'échanger avec vous."
+        "fourth": "N'hésitez pas à me contacter directement via mon LinkedIn pour toute information complémentaire. Je serai heureux d'échanger avec vous."
       }
     },
     "projects": {

@@ -91,7 +91,7 @@ const { author, name, description, language, githubPagesUrl, stars, forks } =
     </div>
     <div class="flex gap-4">
       <a
-        href=`/_github/${author}/${name}`
+        href=`https://github.com/${author}/${name}?ref=${Astro.site?.hostname}`
         title={t("PAGE.projects.card.seeNamedRepository").replace(
           "{name}",
           name,
@@ -106,7 +106,7 @@ const { author, name, description, language, githubPagesUrl, stars, forks } =
       {
         githubPagesUrl && (
           <a
-            href={githubPagesUrl}
+            href={`${githubPagesUrl}?ref=${Astro.site?.hostname}`}
             title={t("PAGE.projects.card.seeNamedWebsite").replace(
               "{name}",
               name,

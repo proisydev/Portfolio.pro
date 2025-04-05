@@ -27,7 +27,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const colorRandom: number = Math.floor(Math.random() * 16777215);
     const webhookBody = {
-      username: `[${import.meta.env.SITE_URL}] Contact`,
+      username: `[${import.meta.env.DOMAIN_NAME}] Contact`,
       content: `<@${import.meta.env.DISCORD_USER_ID}>`,
       embeds: [
         {
@@ -40,9 +40,9 @@ export const POST: APIRoute = async ({ request }) => {
             { name: "Message content", value: message },
           ],
           footer: {
-            text: `2025 © ${import.meta.env.SITE_URL} by ${import.meta.env.FIRST_NAME} ${import.meta.env.LAST_NAME}`,
+            text: `2025 © ${import.meta.env.DOMAIN_NAME} by ${import.meta.env.FIRST_NAME} ${import.meta.env.LAST_NAME}`,
           },
-          url: `https://${import.meta.env.SITE_URL}/${locale}/contact`,
+          url: `https://${import.meta.env.DOMAIN_NAME}/${locale}/contact`,
           timestamp: new Date().toISOString(),
         },
       ],

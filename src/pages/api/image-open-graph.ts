@@ -41,7 +41,7 @@ export const GET: APIRoute = ({ request }) => {
               {
                 type: "img",
                 props: {
-                  src: `https://${import.meta.env.SITE_URL}/assets/images/logo.png`,
+                  src: `https://${import.meta.env.DOMAIN_NAME}/assets/images/logo.png`,
                   key: "logo",
                 },
               },
