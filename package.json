@@ -1,35 +1,29 @@
 {
-  "name": "portfolio.astro",
-  "description": "A portfolio under the Astro framework to show your projects, curriculum vitae, cover letter, as well as a place to contact us, in order to have a professional website.",
+  "name": "portfolio.pro",
+  "description": "A portfolio under the Astro framework to show your projects, linkedin, cover letter, as well as a place to contact us, in order to have a professional website.",
   "keywords": [
     "astro",
     "portfolio",
     "website",
-    "curriculum vitae",
+    "linedin",
     "cover letter",
-    "contact"
+    "contact",
+    "deepl api",
+    "github api"
   ],
   "type": "module",
   "version": "0.0.1",
-  "homepage": "https://github.com/tenqah/Portfolio.astro",
-  "author": "Tenqah (https://redirect.tenqah.com/github)",
+  "homepage": "https://github.com/PR0ISY/Portfolio.pro",
+  "author": "Christopher Proisy (https://github.com/PR0ISY)",
   "bugs": {
-    "url": "https://github.com/tenqah/Portfolio.astro/issues"
+    "url": "https://github.com/PR0ISY/Portfolio.pro/issues"
   },
   "scripts": {
     "dev": "astro dev",
     "prebuild": "npm run telemetry:disable",
-    "build": "astro build && npm run change-sitemap-urls",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-hash": "node scripts/generate-password-hash.js",
-    "change-sitemap-urls": "node scripts/change-sitemap-urls.js",
-    "create-vercel.json-file": "node scripts/create-vercel.json-file.js",
-    "telemetry:disable": "astro telemetry disable",
-    "telemetry:enable": "astro telemetry enable",
-    "cv:generate-secret": "node scripts/cv-generate-secret-key.js",
-    "cv:upload": "node scripts/cv-upload.js",
-    "cv:download": "node scripts/cv-download.js",
     "depcheck": "npx depcheck"
   },
   "dependencies": {
