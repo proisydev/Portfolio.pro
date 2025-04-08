@@ -59,7 +59,7 @@ if (process.env.LINKDIN_USERNAME) {
 
       <div class="flex justify-center gap-6">
         <a
-          href={`https://www.linkedin.com/in/${linkedinUsername}?ref=${Astro.site.hostname}`}
+          href={`https://www.linkedin.com/in/${linkedinUsername}?ref=${Astro.site?.hostname || Astro.url.hostname}`}
           title={t("PAGE.home.button.linkedin")}
           target="_blank"
         >

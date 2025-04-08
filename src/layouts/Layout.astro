@@ -18,7 +18,7 @@ const identity = {
 };
 
 const { title, description, noindex, type } = Astro.props;
-const domain = Astro.site?.hostname;
+const domain = Astro.site?.hostname || import.meta.env.DOMAIN_NAME;
 
 const currentLocale = (Astro && Astro.currentLocale) || undefined;
 

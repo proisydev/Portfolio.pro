@@ -48,7 +48,8 @@
         "seeWebsite": "Voir le site",
         "seeNamedWebsite": "Voir le site de {name}",
         "seeNamedRepository": "Voir le repo de {name}"
-      }
+      },
+      "translatedContent": "Contenu traduit automatiquement via <a href=\"{link}\" rel=\"noopener\" title=\"DeepL API\" target=\"_blank\">DeepL API</a>"
     },
     "contact": {
       "send": "Envoyer",

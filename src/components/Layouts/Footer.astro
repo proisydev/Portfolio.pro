@@ -1,6 +1,6 @@
 ---
 import { createTranslator } from "../../utils/i18n/i18n";
-import { getLocalizedUrl, isValidLocale } from "../../utils/i18n/locale";
+import { isValidLocale } from "../../utils/i18n/locale";
 
 // Extract locale from URL (first segment)
 const currentLocale = Astro.url.pathname.split("/")[1];
@@ -52,7 +52,7 @@ if (import.meta.env.VERCEL_GIT_COMMIT_SHA) {
         Hostinger
       </a> -
       <a
-        href="https://astro.build"
+        href=`https://astro.build?ref=${Astro.site?.hostname || Astro.url.hostname}`
         rel="noopener"
         title={Astro.generator}
         target="_blank"

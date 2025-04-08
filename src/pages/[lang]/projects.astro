@@ -42,7 +42,21 @@ if (!isValidLocale(currentLocale)) {
 
 <Layout title={metaTitle} description={metaDescription} type="website">
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-12 text-center">{metaTitle}</h1>
+    <h1 class=`text-4xl font-bold ${!isFrench ? "mb-12" : "mb-3"} text-center`>
+      {metaTitle}
+    </h1>
+    {
+      isFrench && (
+        <p class="text-gray-500 text-center mb-12">
+          <Fragment
+            set:html={t("PAGE.projects.translatedContent").replace(
+              "{link}",
+              `https://www.deepl.com/pro-api?ref=${Astro.site?.hostname || Astro.url.hostname}`,
+            )}
+          />
+        </p>
+      )
+    }
     <div
       class={`${finalProjects.length > 0 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 " : ""}max-w-7xl mx-auto`}
     >

@@ -48,7 +48,8 @@
         "seeWebsite": "See the site",
         "seeNamedWebsite": "See the {name}'s website",
         "seeNamedRepository": "See the {name}'s repository"
-      }
+      },
+      "translatedContent": "Oh?.. I think it's a bug..."
     },
     "contact": {
       "send": "Send",
