@@ -13,6 +13,19 @@ interface Props {
 }
 
 const { identity } = Astro.props;
+function linkCSS(link: string | undefined) {
+  return `transition-colors duration-200 cursor-pointer ${
+    getLocalizedUrl(currentLocale, link) === Astro.url.pathname
+      ? "text-purple-400"
+      : "text-white hover:text-purple-400"
+  }`;
+}
+
+const links = [
+  { href: "/", label: t("NAV.home") },
+  { href: "/projects", label: t("NAV.projects") },
+  { href: "/contact", label: t("NAV.contact") },
+];
 ---
 
 <header class="bg-black text-white p-4">
@@ -23,36 +36,17 @@ const { identity } = Astro.props;
 
     <nav class="flex items-center space-x-4">
       <LangSwitcher {currentLocale} client:load />
-      <span
-        class="text-white hover:text-purple-400 transition-colors duration-200 cursor-pointer"
-      >
-        <a
-          href={getLocalizedUrl(currentLocale, "/")}
-          class="hover:text-purple-300"
-        >
-          {t("NAV.home")}
-        </a>
-      </span>
-      <span
-        class="text-white hover:text-purple-400 transition-colors duration-200 cursor-pointer"
-      >
-        <a
-          href={getLocalizedUrl(currentLocale, "/projects")}
-          class="hover:text-purple-300"
-        >
-          {t("NAV.projects")}
-        </a>
-      </span>
-      <span
-        class="text-white hover:text-purple-400 transition-colors duration-200 cursor-pointer"
-      >
-        <a
-          href={getLocalizedUrl(currentLocale, "/contact")}
-          class="hover:text-purple-300"
-        >
-          {t("NAV.contact")}
-        </a>
-      </span>
+      {
+        links.map((link) => (
+          <a
+            id={`link-${link.label.toLowerCase()}`}
+            href={getLocalizedUrl(currentLocale, link.href)}
+            class={linkCSS(link.href)}
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
   </div>
 </header>

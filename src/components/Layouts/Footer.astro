@@ -9,10 +9,9 @@ const t = createTranslator(validLocale);
 
 interface Props {
   identity: any;
-  domain: string;
 }
 
-const { identity, domain } = Astro.props;
+const { identity } = Astro.props;
 
 let version;
 if (import.meta.env.VERCEL_GIT_COMMIT_SHA) {
@@ -43,15 +42,6 @@ if (import.meta.env.VERCEL_GIT_COMMIT_SHA) {
     <p class="text-gray-500 text-sm text-center">
       {t("OTHER.poweredBy")}
       <a
-        href="https://redirect.proisy.me/hostinger/referral-code"
-        rel="noopener"
-        title="Hostinger"
-        target="_blank"
-        class="text-purple-400 hover:text-purple-300"
-      >
-        Hostinger
-      </a> -
-      <a
         href=`https://astro.build?ref=${Astro.site?.hostname || Astro.url.hostname}`
         rel="noopener"
         title={Astro.generator}
@@ -60,29 +50,26 @@ if (import.meta.env.VERCEL_GIT_COMMIT_SHA) {
       >
         Astro
       </a>
-      {t("OTHER.and")}
-      <a
-        href="https://redirect.proisy.me/vercel"
-        rel="noopener"
-        title="Vercel"
-        target="_blank"
-        class="text-purple-400 hover:text-purple-300"
-      >
-        Vercel
-      </a>
       {
         version !== "none" && (
+          <span>{t("OTHER.and")}</span>
+          <a
+            href={`https://vercel.com?ref=${Astro.site?.hostname || Astro.url.hostname}`}
+            rel="noopener"
+            title="Vercel"
+            target="_blank"
+            class="text-purple-400 hover:text-purple-300"
+          >
+            Vercel
+          </a>
           <span>
             — Version
-            <a
-              href="https://redirect.proisy.me/vercel/view-source"
-              target="_blank"
-              rel="noopener"
+            <span
               title={`Version ${version}`}
               class="text-purple-400 hover:text-purple-300"
             >
               {version}
-            </a>
+            </span>
           </span>
         )
       }

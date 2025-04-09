@@ -25,6 +25,6 @@ Sitemap: ${sitemapURL.href}
 `;
 
 export const GET: APIRoute = () => {
-  const sitemapURL = new URL("sitemap-index.xml", `https://${Astro.site}`);
+  const sitemapURL = new URL("sitemap-index.xml", import.meta.env.SITE);
   return new Response(getRobotsTxt(sitemapURL));
 };
