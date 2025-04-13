@@ -13,6 +13,10 @@ const identity = {
   lastName: import.meta.env.LAST_NAME,
 };
 
+const captcha = {
+  siteKey: import.meta.env.RECAPTCHA_SITE_KEY,
+};
+
 const metaTitle = t("SEO.contact.title");
 const metaDescription = t("SEO.contact.description")
   .replace("{name}", identity?.name)
@@ -25,17 +29,23 @@ if (!isValidLocale(currentLocale)) {
 }
 ---
 
-<Layout title={metaTitle} description={metaDescription} type="website">
+<Layout title={metaTitle} description={metaDescription} type="website" captcha>
   <div class="container mx-auto px-4 py-8" transition:animate="fade">
     <h1 class="text-4xl font-bold mb-12 text-center" transition:name="title">
       {metaTitle}
     </h1>
     <form
+      id="contact-form"
       method="POST"
       action="/api/contact"
       class="max-w-md mx-auto space-y-4"
     >
       <input type="hidden" name="locale" value={currentLocale} />
+      <input
+        type="hidden"
+        id="g-recaptcha-response"
+        name="g-recaptcha-response"
+      />
       <div>
         <label for="name" class="block text-white">
           <Fragment set:html={t("PAGE.contact.field.name")} />
@@ -71,12 +81,45 @@ if (!isValidLocale(currentLocale)) {
           required
           class="w-full p-2 rounded"></textarea>
       </div>
+      <div
+        class="g-recaptcha"
+        data-sitekey={captcha.siteKey}
+        data-size="invisible"
+        data-callback="onSubmit"
+      >
+      </div>
       <button
-        type="submit"
+        type="button"
+        onclick="handleSubmit(event)"
         class="w-full bg-purple-600 hover:bg-purple-700 text-white p-2 rounded"
       >
         {t("PAGE.contact.send")}
       </button>
     </form>
   </div>
+  <p class="text-xs text-gray-400 mt-2 text-center">
+    <Fragment
+      set:html={t("OTHER.recaptchaLegals")
+        .replace(
+          "{privacy}",
+          `<a href="https://policies.google.com/privacy" target="_blank" title="${t("OTHER.privacy")}" class="text-purple-400 hover:underline">${t("OTHER.privacy")}</a>`,
+        )
+        .replace(
+          "{terms}",
+          `<a href="https://policies.google.com/terms" target="_blank" title="${t("OTHER.terms")}" class="text-purple-400 hover:underline">${t("OTHER.terms")}</a>`,
+        )}
+    />
+  </p>
+
+  <script type="text/javascript" is:inline>
+    function handleSubmit(event) {
+      event.preventDefault();
+      grecaptcha.execute();
+    }
+
+    function onSubmit(token) {
+      document.getElementById("g-recaptcha-response").value = token;
+      document.getElementById("contact-form").submit();
+    }
+  </script>
 </Layout>

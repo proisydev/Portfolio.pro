@@ -24,8 +24,8 @@ const cookies = parseCookies(Astro.request.headers.get("cookie"));
 // Determine if we are in development mode
 const isDev = import.meta.env.MODE === "development";
 
-// If the error cookie is not present or not equal to "1", redirect to localized contact page
-if (!isDev && cookies.contactError !== "1") {
+// If the error cookie is not present, redirect to localized contact page
+if (!isDev && !cookies.contactError) {
   return Astro.redirect(getLocalizedUrl(validLocale, "/contact"));
 } else if (!isDev) {
   // Remove the error cookie to prevent reloading the error page
@@ -33,16 +33,12 @@ if (!isDev && cookies.contactError !== "1") {
     "Set-Cookie",
     "contactError=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Strict",
   );
-  // Optionally, remove the error message cookie as well
-  Astro.response.headers.append(
-    "Set-Cookie",
-    "contactErrorMsg=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Strict",
-  );
 }
 
-// Retrieve detailed error message if provided; otherwise, use a default message
-const errorMessage =
-  cookies.contactErrorMsg || t("PAGE.contact.form.errorMessage");
+// Decode the error message from the cookie if it exists
+const errorMessage = cookies.contactError
+  ? decodeURIComponent(cookies.contactError)
+  : t("PAGE.contact.form.errorMessage");
 
 const metaTitle = t("SEO.contact.title");
 const metaDescription = t("SEO.contact.description");
@@ -57,7 +53,7 @@ const metaDescription = t("SEO.contact.description");
   <div class="container mx-auto px-4 py-8">
     <h1 class="text-4xl font-bold text-center">{t("SEO.contact.title")}</h1>
     <p class="text-center mt-4 text-red-500">
-      <Fragment set:html={errorMessage} />
+      {errorMessage}
     </p>
     <div class="text-center mt-8">
       <a

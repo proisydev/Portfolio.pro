@@ -24,11 +24,11 @@ const cookies = parseCookies(Astro.request.headers.get("cookie"));
 // Determine if we are in development mode
 const isDev = import.meta.env.MODE === "development";
 
-// If the cookie is not present or not equal to "1", redirect to localized contact
+// If the success cookie is not present, redirect to localized contact page
 if (!isDev && cookies.contactSuccess !== "1") {
-  return Astro.redirect(getLocalizedUrl(currentLocale, "/contact"));
+  return Astro.redirect(getLocalizedUrl(validLocale, "/contact"));
 } else if (!isDev) {
-  // Remove the cookie by setting it to empty with Max-Age=0
+  // Remove the success cookie to prevent reloading the success page
   Astro.response.headers.set(
     "Set-Cookie",
     "contactSuccess=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Strict",

@@ -81,6 +81,9 @@
     "poweredBy": "Powered by",
     "and": "and",
     "seeOn": "See on {platform}",
-    "returnTo": "Return to {page}"
+    "returnTo": "Return to {page}",
+    "recaptchaLegals": "This page is protected by reCAPTCHA and subject <br /> to Google's {privacy} and {terms}.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
   }
 }
